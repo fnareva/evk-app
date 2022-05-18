@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 8081:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - ~/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/local/bin/docker
+  agent:
+    image: jenkins/ssh-agent:jdk11
+    privileged: true
+    user: root
+    container_name: agent
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCobB17et0LF0VgP6ZNUqUHmv11KmhTkEIMo1tLZIvA4csGhHEsV5/SpxgDw9Q4j++JWqJVPcgXv1UDyDGwQqxusYOGOMb/vXBdI0VVDouZkWZrzqLw8AU5k93k4QiMWQKIZcI10bNyFbW7FtEf114WqIxMBiJ2pMP0E77sdtVJq8lOuY7gwGG1H4M409idYlkvFPPqG4tkVpjzWorB72dbqzAgRyrVgoVV65/ziyd1UXjI9oik/jEMrCMXcSVcKfN1bv6qp3rXNzK03JjNkaGXRuoVO7e3t1bBEEouKIYEpOLY2rkJNLmt078/U48qL08iZIFIZobHNo574ivUfd22FEGY1wg79qJO94Up/bPIhfJrMgYM2EWSP8Hnp2SiPf4bnpKbO2c/9cw0I8bKuphGineFuI3Xx9up8DUGG+TuisQGf4LbCIytia6BpDzi1sG3OPddT5P7ccHd1Z7rEokbMJQte/a7tk+Cc2kHTE7YvHdJW71YnLfe8n359DP0Wws= blizzard\ekollarova@IR-EKOLLAROV-WL
+#    build: .
+#    ports:
+#      - 8080:8080
+#  zookeeper:
+#    container_name: zookeeper
+#    image: confluentinc/cp-zookeeper:latest
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#    ports:
+#      - 22181:2181
+#  kafka:
+#    container_name: broker
+#    image: confluentinc/cp-kafka:latest
+#    depends_on:
+#      - zookeeper
+#    ports:
+#      - 29092:29092
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1

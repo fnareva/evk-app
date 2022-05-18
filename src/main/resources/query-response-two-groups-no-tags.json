@@ -1,0 +1,41 @@
+{
+	"queries": [
+		{
+			"sample_size": 10,
+			"results": [
+				{
+					"program": "default",
+          "metric_key": "metric1",
+					"name": "metric1.sum",
+          "agg": "sum",
+					"group_by": [
+						{
+							"name": "value",
+							"range_size": 10,
+							"group": {
+								"group_number": 0
+							}
+						}
+					],
+					"values": [[12345, 1 ], [56789, 2], [98765, 2.9]]
+				},
+				{
+          "program": "default",
+          "metric_key": "metric1",
+          "name": "metric1.sum",
+          "agg": "sum",
+					"group_by": [
+						{
+							"name": "value",
+							"range_size": 10,
+							"group": {
+								"group_number": 1
+							}
+						}
+					],
+					"values": [[12345,5],[56789,6],[98765,7.9]]
+				}
+			]
+		}
+	]
+}
